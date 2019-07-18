@@ -4,7 +4,7 @@ pipeline {
         stage('git_clone_demo') {
             steps {
                 echo 'Hello world!' 
-                git ''
+                git 'https://github.com/padhmaja/maju.git'
             }
         }
     stage('Build') {
