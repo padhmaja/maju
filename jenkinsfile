@@ -1,23 +1,29 @@
 pipeline {
-    agent any 
+    agent { label 'master' }
     stages {
-        stage('master') { 
+        stage('git_clone_demo') {
             steps {
-                echo 'Taking code fron Git hub' 
-                git "https://github.com/jfrog/project-examples.git/"
-                echo 'code taken'
+                echo 'Hello world!' 
+                git 'https://github.com/kolimikeshava/kesava.git'
             }
         }
-        stage('build') { 
-            steps {
-                echo 'creating text file'
-                writeFile file: 'demo.txt',text: 'Working with files the Groovy way is easy.'
-            }
-        }
-        stage('Deploy') { 
-            steps {
-                echo 'deploying to container' 
-            }
+    stage('Build') {
+        steps {
+            echo 'helloword'
+            sh '''
+            mvn clean
+            mvn compile
+            mvn test
+            mvn package
+            '''
         }
     }
+    stage('shell') {
+        steps {
+            sh '''mkdir reddy
+            cd reddy
+            touch file1'''
+        }
+    }
+       }
 }
